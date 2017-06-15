@@ -5,15 +5,17 @@ Proyecto: Cancha de Fútbol 5
 
 
 
+
 Integrantes:
 
-Jhosua Arias
+-Jhosua Arias
 
-Elías Calderón
+-Elías Calderón
 
-Daniel Montes De Oca
+-Daniel Montes De Oca
 
-Carlos Portuguez
+-Carlos Portuguez
+
 
 
 
