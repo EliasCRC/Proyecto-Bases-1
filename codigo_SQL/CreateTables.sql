@@ -29,7 +29,7 @@ CONSTRAINT FKClienteFrecuente FOREIGN KEY(Telefono) REFERENCES Cliente(Telefono)
 
 CREATE TABLE Encargado 
 ( 
-Cédula		VARCHAR(20),
+Cedula		VARCHAR(20),
 Nombre		VARCHAR(20)	NOT NULL
  
 CONSTRAINT PKEncargado PRIMARY KEY (Cedula)
