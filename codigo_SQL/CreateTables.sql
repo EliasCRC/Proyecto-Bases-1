@@ -66,7 +66,7 @@ CONSTRAINT PKProducto PRIMARY KEY (Nombre)
 CREATE TABLE Venta
 (
 MomentoVenta 	DATETIME,
-MontoTotal 		INT,	
+MontoTotal 		INT	DEFAULT 0,	
 CedulaEncargado VARCHAR(20)
  
 CONSTRAINT PKVenta PRIMARY KEY (MomentoVenta),
