@@ -98,7 +98,7 @@ CONSTRAINT FKVenta FOREIGN KEY(MomentoVenta) REFERENCES Venta(MomentoVenta)
 CREATE TABLE DeEquipoCompleto 
 ( 
 MomentoReservado		DATETIME		NOT NULL,
-EsAutomatica			INT				NOT NULL,
+EsAutomatica			BIT				NOT NULL,
 TelefonoCliente			VARCHAR(10)		NOT NULL
 CONSTRAINT PKEquipoCompleto PRIMARY KEY(MomentoReservado),
 CONSTRAINT FKRerservacionE FOREIGN KEY(MomentoReservado) REFERENCES Reservacion(MomentoReservado)
