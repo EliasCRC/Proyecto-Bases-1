@@ -127,7 +127,8 @@ CONSTRAINT FKRerservacionR FOREIGN KEY(MomentoReservado) REFERENCES Reservacion(
  CREATE TABLE Participa_En 
  (
 TelefonoCliente		VARCHAR(10),
-MomentoReservado	DATETIME
+MomentoReservado	DATETIME,
+EsCreador	BIT
  
 CONSTRAINT PKParticipa PRIMARY KEY(TelefonoCliente, MomentoReservado),
 CONSTRAINT FKClienteParticipe FOREIGN KEY(TelefonoCliente) REFERENCES Cliente(Telefono)
