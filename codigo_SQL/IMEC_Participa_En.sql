@@ -1,10 +1,8 @@
 CREATE PROCEDURE insertar_Participa_En
-	@telCliente	varchar(10),	
-	@momento	datetime
-	AS 
-	INSERT INTO Participa_En
-	VALUES	(@telCliente, @momento)
-
+	@telefonoC	varchar(10),
+	@momento	DATETIME
+AS	INSERT INTO Participa_En
+	VALUES (@telefonoC, @momento, 0);
 
 CREATE PROCEDURE modificar_Participa_En
 	@telClienteViejo	varchar(10),	
