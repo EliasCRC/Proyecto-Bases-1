@@ -3,13 +3,19 @@ use DB_GRUPO1
 -- Remover un cliente frecuente y ponerlo como clientes
 Go
 CREATE PROCEDURE quitar_Frecuente
-@telefono varchar(10)
+@telefono varchar(10),
+@estado BIT OUTPUT
 AS
-	DELETE FROM DeEquipoCompleto
-	WHERE EsAutomatica = 1 AND TelefonoCliente = @telefono
-	DELETE FROM Frecuente
-	WHERE Telefono = @telefono
-
+	BEGIN TRY
+		DELETE FROM DeEquipoCompleto
+		WHERE EsAutomatica = 1 AND TelefonoCliente = @telefono
+		DELETE FROM Frecuente
+		WHERE Telefono = @telefono
+		END TRY
+	BEGIN CATCH
+		set @estado = ERROR_MESSAGE()
+	END CATCH
+ 
 -- Consultar todos los clientes con el estatus frecuentes
 Go
 CREATE PROCEDURE consultar_Frecuentes
@@ -19,12 +25,17 @@ AS
 -- Ver los horarios que el cliente tiene reservado
 Go
 CREATE PROCEDURE consultar_Horarios
-@telefono varchar (10)
+@telefono varchar (10),
+@estado BIT OUTPUT
 AS
-	SELECT DISTINCT Datepart(WeekDay, MomentoReservado) Dia, Datepart(Hour, MomentoReservado) Hora
-	FROM DeEquipoCompleto
-	WHERE EsAutomatica = 1	AND TelefonoCliente = @telefono;
-
+	BEGIN TRY
+		SELECT DISTINCT Datepart(WeekDay, MomentoReservado) Dia, Datepart(Hour, MomentoReservado) Hora
+		FROM DeEquipoCompleto
+		WHERE EsAutomatica = 1	AND TelefonoCliente = @telefono;
+	END TRY
+	BEGIN CATCH
+	set @estado = ERROR_MESSAGE()
+	END CATCH
 
 
 -- Insertar un nuevo horario para el cliente
@@ -33,33 +44,53 @@ CREATE PROCEDURE agregar_HorarioFrecuente
 @telefono varchar(10),
 @telefonoReferencia varchar(10),
 @horario datetime,
-@cedulaEncargado varchar(20)
+@cedulaEncargado varchar(20),
+@estado BIT OUTPUT
 AS
-	INSERT INTO Reservacion
-	VALUES (@horario, null, null, @telefonoReferencia, @cedulaEncargado)
-	INSERT INTO DeEquipoCompleto
-	VALUES (@horario, 1, @telefono)
+	BEGIN TRY
+		INSERT INTO Reservacion
+		VALUES (@horario, null, null, @telefonoReferencia, @cedulaEncargado)
+		INSERT INTO DeEquipoCompleto
+		VALUES (@horario, 1, @telefono)
+	END TRY
+	BEGIN CATCH
+		set @estado = ERROR_MESSAGE()
+	END CATCH
 
 -- Eliminar un horario para el cliente
 Go
 CREATE PROCEDURE eliminar_HorarioFrecuente
-@horario datetime
+@horario datetime,
+@estado BIT OUTPUT
 AS
+	BEGIN TRY
 	DELETE FROM DeEquipoCompleto
 	WHERE DATEPART(WEEKDAY,MomentoReservado) = DATEPART(WEEKDAY, @horario) AND DATEPART(HOUR, MomentoReservado) = DATEPART(HOUR, @horario)
+	END TRY
+	BEGIN CATCH
+	set @estado = ERROR_MESSAGE()
+	END CATCH
+	
 
 -- Consultar cuales clientes son frecuentes por nombre (usando like)
 Go
 CREATE PROCEDURE consultar_Frecuente_PorNombre 
 @nombre varchar(20),
-@apellido varchar(20)
+@apellido varchar(20),
+@estado BIT OUTPUT
 AS
-	IF @apellido IS NULL 
-		SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
-		WHERE Nombre LIKE '%' + @nombre + '%'
-	ELSE IF @nombre IS NULL
-		SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
-		WHERE Apellido LIKE '%' + @apellido + '%'
-	ELSE 
-		SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
-		WHERE Nombre LIKE '%' + @nombre + '%' AND Apellido LIKE '%' + @apellido + '%'
+	BEGIN TRY
+		IF @apellido IS NULL 
+			SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
+			WHERE Nombre LIKE '%' + @nombre + '%'
+		ELSE IF @nombre IS NULL
+			SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
+			WHERE Apellido LIKE '%' + @apellido + '%'
+		ELSE 
+			SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
+			WHERE Nombre LIKE '%' + @nombre + '%' AND Apellido LIKE '%' + @apellido + '%'
+	END TRY
+	BEGIN CATCH
+		set @estado = ERROR_MESSAGE()
+	END CATCH
+	
