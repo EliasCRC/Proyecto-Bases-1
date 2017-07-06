@@ -3,51 +3,81 @@ use DB_GRUPO1
 Go
 CREATE PROCEDURE modificar_momento_reservacion
 	@momentoViejo	DATETIME,
-	@momentoNuevo	DATETIME
-AS	UPDATE Reservacion
-	SET MomentoReservado = @momentoNuevo
-	WHERE MomentoReservado = @momentoViejo;
+	@momentoNuevo	DATETIME,
+	@estado			bit OUTPUT
+AS	BEGIN TRY
+		UPDATE Reservacion
+		SET MomentoReservado = @momentoNuevo
+		WHERE MomentoReservado = @momentoViejo;
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
 
 Go
 CREATE PROCEDURE inicio_reservacion
 	@momento	DATETIME,
-	@horaInicio	TIME
-AS	UPDATE Reservacion
-	SET HoraInicioReal = @horaInicio
-	WHERE MomentoReservado = @momento;
+	@horaInicio	TIME,
+	@estado		bit OUTPUT
+AS	BEGIN TRY
+		UPDATE Reservacion
+		SET HoraInicioReal = @horaInicio
+		WHERE MomentoReservado = @momento;
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
 
 Go
 CREATE PROCEDURE final_reservacion
 	@momento	DATETIME,
-	@horaFinal	TIME
-AS	UPDATE Reservacion
-	SET HoraFinalizacionReal = @horaFinal
-	WHERE MomentoReservado = @momento;
+	@horaFinal	TIME,
+	@estado		bit OUTPUT
+AS	BEGIN TRY
+		UPDATE Reservacion
+		SET HoraFinalizacionReal = @horaFinal
+		WHERE MomentoReservado = @momento;
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
 
 Go
 CREATE PROCEDURE modificar_telefono_referencia
 	@momento	DATETIME,
 	@telefono	VARCHAR(10),
-	@isDelete	BIT
-AS	IF @isDelete = 1 BEGIN 
-		SELECT @telefono = NULL;
-	END
-	UPDATE Reservacion
-	SET TelefonoReferencia = @telefono
-	WHERE MomentoReservado = @momento
+	@isDelete	BIT,
+	@estado		bit OUTPUT
+AS	BEGIN TRY
+		IF @isDelete = 1 BEGIN 
+			SELECT @telefono = NULL;
+		END
+		UPDATE Reservacion
+		SET TelefonoReferencia = @telefono
+		WHERE MomentoReservado = @momento
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
 
 Go
 CREATE PROCEDURE cancelar_reservacion
 	@momento			DATETIME,
 	@telefonoCliente	VARCHAR(10),
-	@aumentarContador	BIT
-AS	IF @aumentarContador = 1 BEGIN
-		UPDATE Cliente
-		SET NumReservCanceladas = NumReservCanceladas + 1
-		WHERE Telefono = @telefonoCliente;
-	END;
-	DELETE FROM Reservacion
-	WHERE MomentoReservado = @momento;
+	@aumentarContador	BIT,
+	@estado				bit OUTPUT
+AS	BEGIN TRY
+		IF @aumentarContador = 1 BEGIN
+			UPDATE Cliente
+			SET NumReservCanceladas = NumReservCanceladas + 1
+			WHERE Telefono = @telefonoCliente;
+		END;
+		DELETE FROM Reservacion
+		WHERE MomentoReservado = @momento;
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
 
 Go
 CREATE PROCEDURE consultar_reservaciones
@@ -65,13 +95,19 @@ Go
 CREATE PROCEDURE cancelar_reservacion_automatica
 	@momento			DATETIME,
 	@telefonoFrecuente	VARCHAR(10),
-	@aumentarContador	BIT
-AS	IF @aumentarContador = 1 BEGIN
-		UPDATE Frecuente
-		SET NumReservAutomaticasCanceladas = NumReservAutomaticasCanceladas + 1
-		WHERE Telefono = @telefonoFrecuente;
-	END;
-	EXEC cancelar_reservacion @momento, @telefonoFrecuente, @aumentarContador;
+	@aumentarContador	BIT,
+	@estado				bit OUTPUT
+AS	BEGIN TRY
+		IF @aumentarContador = 1 BEGIN
+			UPDATE Frecuente
+			SET NumReservAutomaticasCanceladas = NumReservAutomaticasCanceladas + 1
+			WHERE Telefono = @telefonoFrecuente;
+		END;
+		EXEC cancelar_reservacion @momento, @telefonoFrecuente, @aumentarContador, @estado;
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
 
 Go
 CREATE PROCEDURE consultar_reto_participantes
