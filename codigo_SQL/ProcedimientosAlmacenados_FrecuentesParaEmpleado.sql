@@ -25,17 +25,11 @@ AS
 -- Ver los horarios que el cliente tiene reservado
 Go
 CREATE PROCEDURE consultar_Horarios
-@telefono varchar (10),
-@estado BIT OUTPUT
+@telefono varchar (10)
 AS
-	BEGIN TRY
-		SELECT DISTINCT Datepart(WeekDay, MomentoReservado) Dia, Datepart(Hour, MomentoReservado) Hora
-		FROM DeEquipoCompleto
-		WHERE EsAutomatica = 1	AND TelefonoCliente = @telefono;
-	END TRY
-	BEGIN CATCH
-	set @estado = ERROR_MESSAGE()
-	END CATCH
+	SELECT DISTINCT Datepart(WeekDay, MomentoReservado) Dia, Datepart(Hour, MomentoReservado) Hora
+	FROM DeEquipoCompleto
+	WHERE EsAutomatica = 1	AND TelefonoCliente = @telefono;
 
 
 -- Insertar un nuevo horario para el cliente
@@ -73,24 +67,18 @@ AS
 	
 
 -- Consultar cuales clientes son frecuentes por nombre (usando like)
+-- Consultar cuales clientes son frecuentes por nombre (usando like)
 Go
 CREATE PROCEDURE consultar_Frecuente_PorNombre 
 @nombre varchar(20),
-@apellido varchar(20),
-@estado BIT OUTPUT
+@apellido varchar(20)
 AS
-	BEGIN TRY
-		IF @apellido IS NULL 
-			SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
-			WHERE Nombre LIKE '%' + @nombre + '%'
-		ELSE IF @nombre IS NULL
-			SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
-			WHERE Apellido LIKE '%' + @apellido + '%'
-		ELSE 
-			SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
-			WHERE Nombre LIKE '%' + @nombre + '%' AND Apellido LIKE '%' + @apellido + '%'
-	END TRY
-	BEGIN CATCH
-		set @estado = ERROR_MESSAGE()
-	END CATCH
-	
+	IF @apellido IS NULL 
+		SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
+		WHERE Nombre LIKE '%' + @nombre + '%'
+	ELSE IF @nombre IS NULL
+		SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
+		WHERE Apellido LIKE '%' + @apellido + '%'
+	ELSE 
+		SELECT * FROM Cliente C JOIN Frecuente F on C.Telefono = F.Telefono
+		WHERE Nombre LIKE '%' + @nombre + '%' AND Apellido LIKE '%' + @apellido + '%'
