@@ -1,14 +1,19 @@
 use DB_GRUPO1
 
--- Modificar datos del cliente (Nombre, Apellido o Teléfono)
+-- Modificar datos del cliente (Nombre, Apellido o TelÃ©fono)
 Go
 CREATE PROCEDURE modificar_TelefonoCliente
-@telefonoViejo varchar(10),
-@telefonoNuevo varchar(10)
-AS
-	UPDATE Cliente
-	SET Telefono = @telefonoNuevo
-	WHERE Telefono = @telefonoViejo
+	@telefonoViejo varchar(10),
+	@telefonoNuevo varchar(10),
+	@estado bit OUTPUT
+AS BEGIN TRY 
+		UPDATE Cliente
+		SET Telefono = @telefonoNuevo
+		WHERE Telefono = @telefonoViejo
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
 
 -- Consultar un cliente con nombre usando like (si llega a ser necesario)
 Go
@@ -41,8 +46,13 @@ AS
 Go
 CREATE PROCEDURE modificar_Deuda
 	@tel varchar(10),
-	@cantidad int
-AS
-	UPDATE Cliente
-	SET Deuda = Deuda + @cantidad
-	WHERE Telefono = @tel;
+	@cantidad int,
+	@estado bit OUTPUT
+AS	BEGIN TRY
+		UPDATE Cliente
+		SET Deuda = Deuda + @cantidad
+		WHERE Telefono = @tel;
+	END TRY
+	BEGIN CATCH
+		SET @estado=ERROR_MESSAGE()
+	END CATCH
