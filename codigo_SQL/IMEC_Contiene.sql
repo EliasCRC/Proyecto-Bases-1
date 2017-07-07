@@ -38,9 +38,17 @@ AS	IF @nombreP IS NULL BEGIN
 
 Go
 CREATE PROCEDURE eliminar_Contiene
-	@nombreP	VARCHAR(20)
-AS	DELETE FROM Contiene
-	WHERE NombreProducto = @nombreP
+	@nombreP	VARCHAR(20),
+	@momento	DATETIME,
+	@estado		bit output
+AS	
+BEGIN TRY
+	DELETE FROM Contiene
+	WHERE NombreProducto = @nombreP AND MomentoVenta = @momento
+	END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 Go
 CREATE PROCEDURE consultar_Contiene
