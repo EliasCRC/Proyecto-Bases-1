@@ -56,3 +56,25 @@ AS	BEGIN TRY
 	BEGIN CATCH
 		SET @estado=ERROR_MESSAGE()
 	END CATCH
+
+-- Consultar un cliente que no sea frecuente con nombre usando like (si llega a ser necesario)
+Go
+CREATE PROCEDURE consultar_EsporadicoNombre 
+@nombre varchar(20),
+@apellido varchar(20)
+AS
+	IF @apellido IS NULL 
+		SELECT * FROM Cliente 
+		WHERE Nombre LIKE '%' + @nombre + '%'
+		EXCEPT SELECT C.Telefono, C.Nombre, C.Apellido, C.Deuda, C.NumReservCanceladas
+		FROM Frecuente F JOIN Cliente C on C.Telefono = F.Telefono
+	ELSE IF @nombre IS NULL
+		SELECT * FROM Cliente
+		WHERE Apellido LIKE '%' + @apellido + '%'
+		EXCEPT SELECT C.Telefono, C.Nombre, C.Apellido, C.Deuda, C.NumReservCanceladas
+		FROM Frecuente F JOIN Cliente C on C.Telefono = F.Telefono
+	ELSE 
+		SELECT * FROM Cliente
+		WHERE Nombre LIKE '%' + @nombre + '%' AND Apellido LIKE '%' + @apellido + '%'
+		EXCEPT SELECT C.Telefono, C.Nombre, C.Apellido, C.Deuda, C.NumReservCanceladas
+		FROM Frecuente F JOIN Cliente C on C.Telefono = F.Telefono
