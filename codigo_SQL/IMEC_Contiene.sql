@@ -48,7 +48,9 @@ CREATE PROCEDURE consultar_Contiene
 AS	SELECT *
 	FROM Contiene
 	WHERE NombreProducto = @nombreP;
-GO	
+Go	
 CREATE PROCEDURE consultar_Todos_Contiene
+	@momento DATETIME
 AS	SELECT*
 	FROM Contiene
+	WHERE MomentoVenta = @momento
