@@ -48,3 +48,23 @@ CREATE PROCEDURE consultar_Cliente
 AS
 	SELECT *
 	FROM Cliente C JOIN Frecuente F ON C.Telefono = F.Telefono;
+
+
+Go
+CREATE PROCEDURE consultar_ClienteTelefono
+	@tel varchar(10)
+AS
+	SELECT *
+	FROM Cliente C
+	WHERE C.Telefono = @tel
+
+Go
+CREATE PROCEDURE consultar_EsporadicoTelefono
+	@tel varchar(10)
+AS
+	SELECT *
+	FROM Cliente C
+	WHERE C.Telefono = @tel AND NOT EXISTS (
+		SELECT * FROM Frecuente
+		WHERE Telefono = @tel
+	)
