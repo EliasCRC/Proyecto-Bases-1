@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace ProyectoBases
 {
-    partial class FVenta
+    partial class VentaForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,11 +35,11 @@
             this.bttnEliminar = new System.Windows.Forms.Button();
             this.bttnCancelar = new System.Windows.Forms.Button();
             this.gbVenta = new System.Windows.Forms.GroupBox();
-            this.bttnTerminar = new System.Windows.Forms.Button();
-            this.lblMonto = new System.Windows.Forms.Label();
-            this.lblCantidad = new System.Windows.Forms.Label();
-            this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.bttnIngresar = new System.Windows.Forms.Button();
+            this.nudCantidad = new System.Windows.Forms.NumericUpDown();
+            this.lblCantidad = new System.Windows.Forms.Label();
+            this.lblMonto = new System.Windows.Forms.Label();
+            this.bttnTerminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVentas)).BeginInit();
             this.gbVenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
@@ -116,32 +116,14 @@
             this.gbVenta.Text = "Venta";
             this.gbVenta.Enter += new System.EventHandler(this.gbVenta_Enter);
             // 
-            // bttnTerminar
+            // bttnIngresar
             // 
-            this.bttnTerminar.Location = new System.Drawing.Point(473, 267);
-            this.bttnTerminar.Name = "bttnTerminar";
-            this.bttnTerminar.Size = new System.Drawing.Size(75, 23);
-            this.bttnTerminar.TabIndex = 4;
-            this.bttnTerminar.Text = "Terminar";
-            this.bttnTerminar.UseVisualStyleBackColor = true;
-            // 
-            // lblMonto
-            // 
-            this.lblMonto.AutoSize = true;
-            this.lblMonto.Location = new System.Drawing.Point(31, 285);
-            this.lblMonto.Name = "lblMonto";
-            this.lblMonto.Size = new System.Drawing.Size(67, 13);
-            this.lblMonto.TabIndex = 5;
-            this.lblMonto.Text = "Monto Total:";
-            // 
-            // lblCantidad
-            // 
-            this.lblCantidad.AutoSize = true;
-            this.lblCantidad.Location = new System.Drawing.Point(245, 13);
-            this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(49, 13);
-            this.lblCantidad.TabIndex = 6;
-            this.lblCantidad.Text = "Cantidad";
+            this.bttnIngresar.Location = new System.Drawing.Point(473, 30);
+            this.bttnIngresar.Name = "bttnIngresar";
+            this.bttnIngresar.Size = new System.Drawing.Size(75, 23);
+            this.bttnIngresar.TabIndex = 8;
+            this.bttnIngresar.Text = "Ingresar";
+            this.bttnIngresar.UseVisualStyleBackColor = true;
             // 
             // nudCantidad
             // 
@@ -155,14 +137,32 @@
             0,
             0});
             // 
-            // bttnIngresar
+            // lblCantidad
             // 
-            this.bttnIngresar.Location = new System.Drawing.Point(473, 30);
-            this.bttnIngresar.Name = "bttnIngresar";
-            this.bttnIngresar.Size = new System.Drawing.Size(75, 23);
-            this.bttnIngresar.TabIndex = 8;
-            this.bttnIngresar.Text = "Ingresar";
-            this.bttnIngresar.UseVisualStyleBackColor = true;
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Location = new System.Drawing.Point(245, 13);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(49, 13);
+            this.lblCantidad.TabIndex = 6;
+            this.lblCantidad.Text = "Cantidad";
+            // 
+            // lblMonto
+            // 
+            this.lblMonto.AutoSize = true;
+            this.lblMonto.Location = new System.Drawing.Point(31, 285);
+            this.lblMonto.Name = "lblMonto";
+            this.lblMonto.Size = new System.Drawing.Size(67, 13);
+            this.lblMonto.TabIndex = 5;
+            this.lblMonto.Text = "Monto Total:";
+            // 
+            // bttnTerminar
+            // 
+            this.bttnTerminar.Location = new System.Drawing.Point(473, 267);
+            this.bttnTerminar.Name = "bttnTerminar";
+            this.bttnTerminar.Size = new System.Drawing.Size(75, 23);
+            this.bttnTerminar.TabIndex = 4;
+            this.bttnTerminar.Text = "Terminar";
+            this.bttnTerminar.UseVisualStyleBackColor = true;
             // 
             // FVenta
             // 
@@ -172,6 +172,7 @@
             this.Controls.Add(this.gbVenta);
             this.Name = "FVenta";
             this.Text = "Venta";
+            this.Load += new System.EventHandler(this.FVenta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGVentas)).EndInit();
             this.gbVenta.ResumeLayout(false);
             this.gbVenta.PerformLayout();
