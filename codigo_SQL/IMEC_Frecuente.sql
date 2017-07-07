@@ -19,5 +19,13 @@ AS
 	WHERE Telefono = @tel;
 
 
-/* El consultar del frecuente ya est· abarcado en el consultar de cliente */
+/* El consultar del frecuente ya est√° abarcado en el consultar de cliente */
+
+Go
+CREATE PROCEDURE consultar_FrecuenteTelefono
+	@tel varchar(10)
+AS
+	SELECT C.Telefono, C.Nombre, C.Apellido, Deuda, NumReservCanceladas, NumReservAutomaticasCanceladas
+	FROM Cliente C join Frecuente F on C.Telefono = F.Telefono
+	WHERE C.Telefono = @tel
 
