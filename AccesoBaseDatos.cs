@@ -9,7 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 
 /*Cambiar el namespace para que funcione!!*/
-namespace LabInterfaces
+namespace ProyectoBases
 {
     class AccesoBaseDatos
     {
@@ -141,7 +141,7 @@ namespace LabInterfaces
                         //se prepara el parámetro de retorno del procedimiento almacenado
                         cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
-                        /*Se abre la conexión*/
+                        /*Se abre la conexión
                         con.Open();
 
                         //Se ejecuta el procedimiento almacenado
@@ -162,60 +162,36 @@ namespace LabInterfaces
 
         }
     **/
-        /*Método para llamar al procedimiento almacenado para comprobar que un usuario está en la base de datos
-         Recibe: El usuario y contraseña que se desea verificar que está en la base de datos
-         Modifica: Busca el usuario con esa contraseña en la base de datos
-         Retorna: true si está en la base de datos, false sino*/
-        public bool login(string usuario, string password)
+
+        public DataTable consultar_venta_entreFechas (DateTime fechaUno, DateTime fechaDos)
         {
             using (SqlConnection con = new SqlConnection(conexion))
             {
-                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
-                 * de segundo parámetro recibe el sqlConnection
-                */
-                using (SqlCommand cmd = new SqlCommand("Login", con))
+                using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
                 {
                     try
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        dataAdapter.SelectCommand = new SqlCommand("consultar_Ventas_Entre_Fechas", con);
+                        dataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
 
                         //Se preparan los parámetros que recibe el procedimiento almacenado
-                        cmd.Parameters.Add("@pLoginName", SqlDbType.VarChar).Value = usuario;
-                        cmd.Parameters.Add("@pPassword", SqlDbType.VarChar).Value = password;
+                        dataAdapter.SelectCommand.Parameters.Add("@fecha1", SqlDbType.DateTime).Value = fechaUno;
+                        dataAdapter.SelectCommand.Parameters.Add("@fecha2", SqlDbType.DateTime).Value = fechaDos;
 
-                        //se prepara el parámetro de retorno del procedimiento almacenado
-                        cmd.Parameters.Add("@isInDB", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        DataSet dataSet = new DataSet();
+                        dataAdapter.Fill(dataSet, "result_table");
 
-                        /*Se abre la conexión*/
-                        con.Open();
-
-                        //Se ejecuta el procedimiento almacenado
-                        cmd.ExecuteNonQuery();
-
-                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
-                        int value = Convert.ToInt32(cmd.Parameters["@isInDB"].Value);
-
-                        /*Si el procedimiento devuelve 1 es que si se encuentra en la BD*/
-                        if (value == 1)
-                        {
-                            return true;
-                        }
-
-                        /*Si devuelve 0 es que no se encuentra en la BD*/
-                        else
-                        {
-                            return false;
-                        }
-
+                        return dataSet.Tables["result_table"];
+                        
                     }
                     catch (SqlException ex)
                     {
-                        return false;
+                        return null;
                     }
                 }
             }
-
         }
+        
 
     }
 }
