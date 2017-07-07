@@ -7,7 +7,7 @@ Telefono			VARCHAR(10),
 Nombre				VARCHAR(20)	NOT NULL,
 Apellido			VARCHAR(20),
 Deuda				INT		DEFAULT 0,
-NumReservCanceladas	INT		DEFAULT 0
+NumReservCanceladas		INT		DEFAULT 0
  
 CONSTRAINT PKCliente PRIMARY KEY (Telefono)
 );
@@ -16,8 +16,8 @@ CONSTRAINT PKCliente PRIMARY KEY (Telefono)
 
 CREATE TABLE Frecuente 
 ( 
-Telefono						VARCHAR(10)		NOT NULL,
-NumReservAutomaticasCanceladas	TINYINT 		DEFAULT 0
+Telefono					VARCHAR(10),
+NumReservAutomaticasCanceladas	TINYINT		DEFAULT 0
  
 CONSTRAINT PKFrecuente PRIMARY KEY (Telefono),
 CONSTRAINT FKClienteFrecuente FOREIGN KEY(Telefono) REFERENCES Cliente(Telefono)
@@ -41,7 +41,7 @@ CREATE TABLE Reservacion
 ( 
 MomentoReservado		DATETIME,
 HoraInicioReal			TIME,	
-HoraFinalizacionReal	TIME,
+HoraFinalizacionReal		TIME,
 TelefonoReferencia		VARCHAR(10),
 CedulaEncargado			VARCHAR(20)
  
@@ -49,6 +49,7 @@ CONSTRAINT PKReservacion PRIMARY KEY (MomentoReservado),
 CONSTRAINT FKEncargadoReserv FOREIGN KEY(CedulaEncargado) REFERENCES Encargado(Cedula)
 	ON UPDATE CASCADE
 	ON DELETE SET NULL
+	-- Si un encargado es eliminado del sistema todas sus reservaciones no deberían de borrarse
 );
 
 
@@ -65,14 +66,15 @@ CONSTRAINT PKProducto PRIMARY KEY (Nombre)
 
 CREATE TABLE Venta
 (
-MomentoVenta 	DATETIME,
+MomentoVenta 		DATETIME,
 MontoTotal 		INT	DEFAULT 0,	
-CedulaEncargado VARCHAR(20)
+CedulaEncargado 	VARCHAR(20)
  
 CONSTRAINT PKVenta PRIMARY KEY (MomentoVenta),
 CONSTRAINT FKEncargadoVenta FOREIGN KEY(CedulaEncargado) REFERENCES Encargado(Cedula)
 	ON UPDATE CASCADE
 	ON DELETE SET NULL 
+	-- Si un encargado es eliminado del sistema todas sus ventas no deberían de borrarse
 );
 
 
@@ -100,6 +102,7 @@ CREATE TABLE DeEquipoCompleto
 MomentoReservado		DATETIME,
 EsAutomatica			BIT				NOT NULL,
 TelefonoCliente			VARCHAR(10)		NOT NULL
+
 CONSTRAINT PKEquipoCompleto PRIMARY KEY(MomentoReservado),
 CONSTRAINT FKRerservacionE FOREIGN KEY(MomentoReservado) REFERENCES Reservacion(MomentoReservado)
 	ON UPDATE CASCADE
