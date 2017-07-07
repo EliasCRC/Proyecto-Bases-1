@@ -4,10 +4,16 @@ Go
 CREATE PROCEDURE insertar_Contiene
 	@nombreP	VARCHAR(20),
 	@momentoV	DATETIME,
-	@cantidad	TINYINT
-AS	INSERT INTO Contiene
+	@cantidad	TINYINT,
+	@estado		bit output
+AS	
+BEGIN TRY	
+	INSERT INTO Contiene
 	VALUES (@nombreP, @momentoV, @cantidad);
-
+	END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 Go 
 CREATE PROCEDURE modificar_Contiene
 	@nombrePViejo	VARCHAR(20),
