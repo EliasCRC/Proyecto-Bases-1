@@ -83,7 +83,7 @@ CREATE TABLE Contiene
 (
 NombreProducto	VARCHAR(20),
 MomentoVenta	DATETIME,
-Cantidad	TINYINT		NOT NULL	CHECK(Cantidad > 0)
+Cantidad		TINYINT		NOT NULL	CHECK(Cantidad > 0)
  
 CONSTRAINT PKContiene PRIMARY KEY(NombreProducto, MomentoVenta),
 CONSTRAINT FKProducto FOREIGN KEY(NombreProducto) REFERENCES Producto(Nombre)
@@ -100,8 +100,9 @@ CONSTRAINT FKVenta FOREIGN KEY(MomentoVenta) REFERENCES Venta(MomentoVenta)
 CREATE TABLE DeEquipoCompleto 
 ( 
 MomentoReservado		DATETIME,
-EsAutomatica			BIT		NOT NULL,
-TelefonoCliente			VARCHAR(10)	NOT NULL
+EsAutomatica			BIT				NOT NULL,
+TelefonoCliente			VARCHAR(10)		NOT NULL
+
 CONSTRAINT PKEquipoCompleto PRIMARY KEY(MomentoReservado),
 CONSTRAINT FKRerservacionE FOREIGN KEY(MomentoReservado) REFERENCES Reservacion(MomentoReservado)
 	ON UPDATE CASCADE
@@ -127,9 +128,10 @@ CONSTRAINT FKRerservacionR FOREIGN KEY(MomentoReservado) REFERENCES Reservacion(
 
 
  CREATE TABLE Participa_En 
- (
+(
 TelefonoCliente		VARCHAR(10),
-MomentoReservado	DATETIME
+MomentoReservado	DATETIME,
+EsCreador			BIT			NOT NULL
  
 CONSTRAINT PKParticipa PRIMARY KEY(TelefonoCliente, MomentoReservado),
 CONSTRAINT FKClienteParticipe FOREIGN KEY(TelefonoCliente) REFERENCES Cliente(Telefono)
