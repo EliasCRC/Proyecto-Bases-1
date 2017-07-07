@@ -90,6 +90,22 @@ AS	SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.Te
 	SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.TelefonoReferencia, RE.CedulaEncargado, R.EsAutomatica, 'De Equipo Completo' AS Tipo
 	FROM Reservacion RE JOIN DeEquipoCompleto R ON RE.MomentoReservado = R.MomentoReservado
 	WHERE RE.MomentoReservado BETWEEN @momentoBase AND @momentoTop 
+	
+Go
+CREATE PROCEDURE consultar_EquipoCompleto_Intervalo
+	@momentoBase	DATETIME,
+	@momentoTop		DATETIME
+AS	SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.TelefonoReferencia, RE.CedulaEncargado, R.EsAutomatica
+	FROM Reservacion RE JOIN DeEquipoCompleto R ON RE.MomentoReservado = R.MomentoReservado
+	WHERE RE.MomentoReservado BETWEEN @momentoBase AND @momentoTop 
+	
+Go
+CREATE PROCEDURE consultar_Reto_Intervalo
+	@momentoBase	DATETIME,
+	@momentoTop		DATETIME
+AS	SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.TelefonoReferencia, RE.CedulaEncargado
+	FROM Reservacion RE JOIN Reto R ON RE.MomentoReservado = R.MomentoReservado
+	WHERE RE.MomentoReservado BETWEEN @momentoBase AND @momentoTop 
 
 Go
 CREATE PROCEDURE cancelar_reservacion_automatica
