@@ -48,3 +48,7 @@ CREATE PROCEDURE consultar_Contiene
 AS	SELECT *
 	FROM Contiene
 	WHERE NombreProducto = @nombreP;
+GO	
+CREATE PROCEDURE consultar_Todos_Contiene
+AS	SELECT*
+	FROM Contiene
