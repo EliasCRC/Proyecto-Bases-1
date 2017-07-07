@@ -4,9 +4,16 @@ Go
 CREATE PROCEDURE insertar_Venta
 	@momento	datetime,
 	@montoT		int,
-	@cedulaE	varchar(20)
-AS	INSERT INTO Venta
+	@cedulaE	varchar(20),
+	@estado		bit output
+AS	
+BEGIN TRY
+	INSERT INTO Venta
 	VALUES (@momento, @montoT, @cedulaE);
+END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 Go 
 CREATE PROCEDURE modificar_Venta
