@@ -3,7 +3,8 @@ use DB_GRUPO1
 CREATE TABLE Usuarios
 (
 	cedulaUsuario	VARCHAR(20)		NOT NULL,
-	nombreUsuario	VARCHAR(40)	NOT NULL	PRIMARY KEY,
+	nombreUsuario	VARCHAR(40)		NOT NULL	PRIMARY KEY,
+	esAdmin			BIT				NOT NULL,
 	PasswordHash	BINARY(64)		NOT NULL,
 	salt			UNIQUEIDENTIFIER,
 CONSTRAINT FK_EncargadoUser FOREIGN KEY	(cedulaUsuario) REFERENCES Encargado(Cedula)
@@ -16,12 +17,13 @@ CREATE PROCEDURE agregarUsuario
 	@pLogin NVARCHAR(50),
 	@pPassword NVARCHAR(50),
 	@cedula varchar(9),
+	@esAdmin bit,
 	@estado bit OUTPUT
 
 AS  DECLARE @salt UNIQUEIDENTIFIER=NEWID()
 	BEGIN TRY
 		INSERT INTO Usuarios
-		VALUES(@cedula, @pLogin, HASHBYTES('SHA2_512', @pPassword+CAST(@salt AS NVARCHAR(36))), @salt)
+		VALUES(@cedula, @pLogin, @esAdmin, HASHBYTES('SHA2_512', @pPassword+CAST(@salt AS NVARCHAR(36))), @salt)
 		SET @estado=1
 	END TRY
 	BEGIN CATCH
@@ -47,3 +49,11 @@ AS	DECLARE @userID INT
 		END
 	ELSE
 		SET @isInDB=0
+
+Go
+CREATE PROCEDURE UsuarioEsAdmin
+	@pLoginName NVARCHAR(254),
+	@esAdmin bit	OUTPUT
+AS	SELECT @esAdmin = esAdmin
+	FROM Usuarios
+	WHERE nombreUsuario = @pLoginName
