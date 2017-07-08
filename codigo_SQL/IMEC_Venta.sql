@@ -40,9 +40,16 @@ AS	IF @momento IS NULL BEGIN
 
 Go
 CREATE PROCEDURE eliminar_Venta
-	@momento		datetime
-AS	DELETE FROM Venta
+	@momento		datetime,
+	@estado		bit output
+AS	
+BEGIN TRY	
+	DELETE FROM Venta
 	WHERE MomentoVenta = @momento
+	END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 Go
 CREATE PROCEDURE consultar_Venta
