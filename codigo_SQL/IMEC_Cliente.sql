@@ -44,10 +44,16 @@ AS	IF @telnuevo IS NULL BEGIN
 
 Go
 CREATE PROCEDURE eliminar_Cliente
-	@tel varchar(10)
+	@tel varchar(10),
+	@estado		bit output
 AS
+BEGIN TRY
 	DELETE FROM Cliente
 	WHERE Telefono = @tel;
+		END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 
 Go
