@@ -6,10 +6,16 @@ CREATE PROCEDURE insertar_Reservacion
 	@horaInicioReal			TIME,	
 	@horaFinalizacionReal	TIME,
 	@telReferencia			VARCHAR(10),
-	@cedulaEncargado		VARCHAR(20)
+	@cedulaEncargado		VARCHAR(20),
+	@estado bit output
 	AS 
+	BEGIN TRY
 	INSERT INTO Reservacion
 	VALUES	(@momento, @horaInicioReal, @horaFinalizacionReal, @telReferencia, @cedulaEncargado)
+		END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 Go
 CREATE PROCEDURE consultar_Reservacion
@@ -21,10 +27,16 @@ CREATE PROCEDURE consultar_Reservacion
 
 Go
 CREATE PROCEDURE eliminar_Reservacion
-	@momento	DATETIME
+	@momento	DATETIME,
+	@estado bit output
 	AS
+	BEGIN TRY
 	DELETE FROM Reservacion
 	WHERE MomentoReservado = @momento
+		END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 Go
 CREATE PROCEDURE modificar_Reservacion
@@ -33,8 +45,10 @@ CREATE PROCEDURE modificar_Reservacion
 	@horaInicioReal			TIME,	
 	@horaFinalizacionReal	TIME,
 	@telReferencia			VARCHAR(10),
-	@cedulaEncargado		VARCHAR(20)
-	AS 
+	@cedulaEncargado		VARCHAR(20),
+	@estado bit output
+	AS
+BEGIN TRY
 	IF @momentoNuevo IS NULL BEGIN
 		SELECT @momentoNuevo = @momentoViejo
 	END
@@ -62,3 +76,7 @@ CREATE PROCEDURE modificar_Reservacion
 	SET MomentoReservado = @momentoNuevo, HoraInicioReal = @horaInicioReal, HoraFinalizacionReal = @horaFinalizacionReal, 
 		TelefonoReferencia = @telReferencia, CedulaEncargado = @cedulaEncargado
 	WHERE MomentoReservado = @momentoViejo
+		END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
