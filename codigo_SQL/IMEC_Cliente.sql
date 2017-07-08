@@ -4,10 +4,18 @@ Go
 CREATE PROCEDURE insertar_Cliente
 	@tel varchar(10),
 	@nomb varchar(20),
-	@ape varchar(20)
+	@ape varchar(20),
+	@deuda int,
+	@numReserv int,
+	@estado bit output
 AS
+BEGIN TRY	
 	INSERT INTO Cliente
-	VALUES(@tel, @nomb, @ape, 0, 0);
+	VALUES(@tel, @nomb, @ape, @deuda, @numReserv);
+	END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 
 Go
