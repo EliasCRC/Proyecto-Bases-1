@@ -22,7 +22,7 @@ namespace ProyectoBases
             SqlDataReader datos = null;
             try
             {
-                datos = bd.ejecutarConsulta("Select	distinct	nombre	from Producto");
+                datos = bd.consultarProductos();
 
                                                 }
             catch (SqlException ex)

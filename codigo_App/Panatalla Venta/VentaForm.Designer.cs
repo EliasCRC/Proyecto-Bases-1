@@ -35,11 +35,13 @@
             this.bttnEliminar = new System.Windows.Forms.Button();
             this.bttnCancelar = new System.Windows.Forms.Button();
             this.gbVenta = new System.Windows.Forms.GroupBox();
+            this.txtMonto = new System.Windows.Forms.TextBox();
             this.bttnIngresar = new System.Windows.Forms.Button();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.lblCantidad = new System.Windows.Forms.Label();
             this.lblMonto = new System.Windows.Forms.Label();
             this.bttnTerminar = new System.Windows.Forms.Button();
+            this.lblTitulo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVentas)).BeginInit();
             this.gbVenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
@@ -47,6 +49,7 @@
             // 
             // cbAgregar
             // 
+            this.cbAgregar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAgregar.FormattingEnabled = true;
             this.cbAgregar.Location = new System.Drawing.Point(55, 33);
             this.cbAgregar.Name = "cbAgregar";
@@ -56,9 +59,16 @@
             // 
             // dataGVentas
             // 
+            this.dataGVentas.AllowUserToAddRows = false;
+            this.dataGVentas.AllowUserToDeleteRows = false;
+            this.dataGVentas.AllowUserToResizeColumns = false;
+            this.dataGVentas.AllowUserToResizeRows = false;
             this.dataGVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGVentas.Location = new System.Drawing.Point(16, 59);
+            this.dataGVentas.MultiSelect = false;
             this.dataGVentas.Name = "dataGVentas";
+            this.dataGVentas.ReadOnly = true;
+            this.dataGVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGVentas.Size = new System.Drawing.Size(570, 202);
             this.dataGVentas.TabIndex = 2;
             // 
@@ -85,6 +95,7 @@
             this.bttnEliminar.TabIndex = 0;
             this.bttnEliminar.Text = "Eliminar";
             this.bttnEliminar.UseVisualStyleBackColor = true;
+            this.bttnEliminar.Click += new System.EventHandler(this.bttnEliminar_Click);
             // 
             // bttnCancelar
             // 
@@ -94,9 +105,11 @@
             this.bttnCancelar.TabIndex = 0;
             this.bttnCancelar.Text = "Cancelar";
             this.bttnCancelar.UseVisualStyleBackColor = true;
+            this.bttnCancelar.Click += new System.EventHandler(this.bttnCancelar_Click);
             // 
             // gbVenta
             // 
+            this.gbVenta.Controls.Add(this.txtMonto);
             this.gbVenta.Controls.Add(this.bttnIngresar);
             this.gbVenta.Controls.Add(this.nudCantidad);
             this.gbVenta.Controls.Add(this.lblCantidad);
@@ -116,6 +129,14 @@
             this.gbVenta.Text = "Venta";
             this.gbVenta.Enter += new System.EventHandler(this.gbVenta_Enter);
             // 
+            // txtMonto
+            // 
+            this.txtMonto.Location = new System.Drawing.Point(115, 282);
+            this.txtMonto.Name = "txtMonto";
+            this.txtMonto.ReadOnly = true;
+            this.txtMonto.Size = new System.Drawing.Size(100, 20);
+            this.txtMonto.TabIndex = 9;
+            // 
             // bttnIngresar
             // 
             this.bttnIngresar.Location = new System.Drawing.Point(473, 30);
@@ -124,10 +145,16 @@
             this.bttnIngresar.TabIndex = 8;
             this.bttnIngresar.Text = "Ingresar";
             this.bttnIngresar.UseVisualStyleBackColor = true;
+            this.bttnIngresar.Click += new System.EventHandler(this.bttnIngresar_Click);
             // 
             // nudCantidad
             // 
             this.nudCantidad.Location = new System.Drawing.Point(248, 34);
+            this.nudCantidad.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudCantidad.Name = "nudCantidad";
             this.nudCantidad.Size = new System.Drawing.Size(120, 20);
             this.nudCantidad.TabIndex = 7;
@@ -151,9 +178,9 @@
             this.lblMonto.AutoSize = true;
             this.lblMonto.Location = new System.Drawing.Point(31, 285);
             this.lblMonto.Name = "lblMonto";
-            this.lblMonto.Size = new System.Drawing.Size(67, 13);
+            this.lblMonto.Size = new System.Drawing.Size(78, 13);
             this.lblMonto.TabIndex = 5;
-            this.lblMonto.Text = "Monto Total:";
+            this.lblMonto.Text = "Monto Total: ₡";
             // 
             // bttnTerminar
             // 
@@ -163,14 +190,28 @@
             this.bttnTerminar.TabIndex = 4;
             this.bttnTerminar.Text = "Terminar";
             this.bttnTerminar.UseVisualStyleBackColor = true;
+            this.bttnTerminar.Click += new System.EventHandler(this.bttnTerminar_Click);
             // 
-            // FVenta
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.BackColor = System.Drawing.SystemColors.Menu;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblTitulo.Location = new System.Drawing.Point(271, 9);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(74, 29);
+            this.lblTitulo.TabIndex = 4;
+            this.lblTitulo.Text = "Venta";
+            // 
+            // VentaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(629, 373);
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.gbVenta);
-            this.Name = "FVenta";
+            this.Name = "VentaForm";
             this.Text = "Venta";
             this.Load += new System.EventHandler(this.FVenta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGVentas)).EndInit();
@@ -178,6 +219,7 @@
             this.gbVenta.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -195,5 +237,7 @@
         private System.Windows.Forms.NumericUpDown nudCantidad;
         private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.Button bttnIngresar;
+        private System.Windows.Forms.TextBox txtMonto;
+        private System.Windows.Forms.Label lblTitulo;
     }
 }
