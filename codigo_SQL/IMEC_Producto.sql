@@ -3,9 +3,16 @@ use DB_GRUPO1
 Go 
 CREATE PROCEDURE insertar_Producto
 	@nombre		VARCHAR(20),
-	@precio		INT
-AS	INSERT INTO Producto
+	@precio		INT,
+	@estado		bit output
+AS	
+BEGIN TRY
+	INSERT INTO Producto
 	VALUES (@nombre, @precio);
+		END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 Go 
 CREATE PROCEDURE modificar_Producto
@@ -26,10 +33,16 @@ AS	IF @nombre IS NULL BEGIN
 
 Go
 CREATE PROCEDURE eliminar_Producto
-	@nombre		VARCHAR(20)
-AS	DELETE FROM Producto
+	@nombre		VARCHAR(20),
+	@estado		bit output
+AS
+BEGIN TRY	
+	DELETE FROM Producto
 	WHERE Nombre = @nombre
-
+	END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 Go
 CREATE PROCEDURE consultar_Producto
 	@nombre		VARCHAR(20)		
