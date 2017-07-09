@@ -20,8 +20,11 @@ CREATE PROCEDURE modificar_Contiene
 	@nombreP		VARCHAR(20),
 	@momentoV		DATETIME,
 	@momentoVViejo	DATETIME,
-	@cantidad		TINYINT
-AS	IF @nombreP IS NULL BEGIN
+	@cantidad		TINYINT,
+	@estado		bit output
+AS	
+BEGIN TRY	
+IF @nombreP IS NULL BEGIN
 		SELECT @nombreP = @nombrePViejo
 	END
 	IF @momentoV IS NULL BEGIN 
@@ -35,6 +38,10 @@ AS	IF @nombreP IS NULL BEGIN
 	UPDATE Contiene
 	SET NombreProducto = @nombreP, MomentoVenta = @momentoV, Cantidad = @cantidad
 	WHERE NombreProducto = @nombrePViejo AND MomentoVenta = @momentoVViejo;
+	END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 Go
 CREATE PROCEDURE eliminar_Contiene
