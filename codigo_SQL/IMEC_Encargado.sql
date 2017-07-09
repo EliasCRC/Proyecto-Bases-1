@@ -18,8 +18,11 @@ GO
 CREATE PROCEDURE modificar_Encargado
 	@cedulaVieja	VARCHAR(20),  
 	@cedulaNueva	VARCHAR(20),	
-	@nombre			VARCHAR(20)
-AS	IF @cedulaNueva IS NULL BEGIN
+	@nombre			VARCHAR(20),
+	@estado int output
+AS
+BEGIN TRY
+	IF @cedulaNueva IS NULL BEGIN
 		SELECT @cedulaNueva = @cedulaVieja
 	END
 	IF @nombre IS NULL BEGIN
@@ -30,6 +33,10 @@ AS	IF @cedulaNueva IS NULL BEGIN
 	UPDATE Encargado
 	SET Cedula = @cedulaNueva , Nombre = @nombre
 	WHERE Cedula = @cedulaVieja
+END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 GO
 CREATE PROCEDURE eliminar_Encargado
