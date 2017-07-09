@@ -23,8 +23,13 @@ CREATE PROCEDURE modificar_Cliente
 	@telviejo varchar(10),
 	@telnuevo varchar(10),
 	@nom varchar(20),
-	@ape varchar(20)
-AS	IF @telnuevo IS NULL BEGIN 
+	@ape varchar(20),
+	@deuda int,
+	@numReserv int,
+	@estado int output
+AS
+BEGIN TRY
+	IF @telnuevo IS NULL BEGIN 
 		SELECT @telnuevo = @telviejo
 	END
 	IF @nom IS NULL BEGIN
@@ -38,8 +43,12 @@ AS	IF @telnuevo IS NULL BEGIN
 		WHERE Telefono = @telviejo
 	END
 	UPDATE Cliente
-	SET Telefono = @telnuevo, Nombre = @nom, Apellido = @ape
+	SET Telefono = @telnuevo, Nombre = @nom, Apellido = @ape, Deuda = @deuda, NumReservCanceladas = @numReserv
 	WHERE Telefono = @telviejo;
+	END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 
 Go
