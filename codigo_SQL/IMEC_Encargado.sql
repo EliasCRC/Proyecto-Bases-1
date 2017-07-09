@@ -33,10 +33,17 @@ AS	IF @cedulaNueva IS NULL BEGIN
 
 GO
 CREATE PROCEDURE eliminar_Encargado
-	@cedula VARCHAR(20)
-	AS
+	@cedula VARCHAR(20),
+	@estado int output
+AS
+BEGIN TRY
 	DELETE FROM Encargado
 	WHERE Cedula = @cedula
+END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
+
 
 GO
 CREATE PROCEDURE consultar_Encargado
