@@ -3,10 +3,16 @@ use DB_GRUPO1
 GO
 CREATE PROCEDURE insertar_Encargado
 	@cedula VARCHAR(20),	
-	@nombre VARCHAR(20)
-	AS
+	@nombre VARCHAR(20),
+	@estado int output
+AS
+BEGIN TRY
 	INSERT INTO Encargado
 	VALUES (@cedula,@nombre)
+			END TRY
+BEGIN CATCH
+	SET @estado = ERROR_MESSAGE()
+END CATCH
 
 GO
 CREATE PROCEDURE modificar_Encargado
