@@ -75,14 +75,13 @@ namespace ProyectoBases
             dgReservN = llenarTabla(dgReservN, datos);
             dgReservN.Columns[0].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss.fff";
 
-            datos = bd.ejecutarConsultaTabla("SELECT * FROM Reto");
+            datos = bd.ejecutarConsultaTabla("SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.TelefonoReferencia, RE.CedulaEncargado, C.Nombre, C.Telefono, P.EsCreador FROM((Reto R left outer JOIN Reservacion RE ON R.MomentoReservado = RE.MomentoReservado)left outer JOIN Participa_En P ON R.MomentoReservado = P.MomentoReservado) left JOIN Cliente C ON P.TelefonoCliente = C.Telefono");
             dgRetos = llenarTabla(dgRetos, datos);
+            dgRetos.Columns[0].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss.fff";
 
             datos = bd.ejecutarConsultaTabla("SELECT * FROM Contiene");
             dgCont = llenarTabla(dgCont, datos);
             dgCont.Columns[1].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss.fff";
-            datos = bd.ejecutarConsultaTabla("SELECT * FROM Participa_En");
-            dgPartR = llenarTabla(dgPartR, datos);
 
             datos = bd.ejecutarConsultaTabla("SELECT * FROM Encargado");
             dgEncargados = llenarTabla(dgEncargados, datos);
@@ -506,6 +505,21 @@ namespace ProyectoBases
 
         private void btnMReservN_Click(object sender, EventArgs e)
         {
+
+            DateTime momento = pickerDate.Value.Date + pickerHour.Value.TimeOfDay;
+            string telref = txtTelr.Text;
+            string cedula = txtCed.Text;
+            Boolean auto = checkAuto.Checked;
+            string tel = txtTelCliente.Text;
+            try
+            {
+                bd.Modificar_ReservacionNormal(Convert.ToDateTime(llave1),momento, telref, cedula, auto, tel);
+            }
+            catch (Exception error)
+            {
+
+            }
+
             DataTable datos;
             datos = bd.ejecutarConsultaTabla("	SELECT R.MomentoReservado, R.HoraInicioReal, R.HoraFinalizacionReal, R.TelefonoReferencia, R.CedulaEncargado, D.EsAutomatica, D.TelefonoCliente FROM DeEquipoCompleto D inner join Reservacion R on D.MomentoReservado = R.MomentoReservado ");
             dgReservN = llenarTabla(dgReservN, datos);
@@ -531,7 +545,7 @@ namespace ProyectoBases
             DateTime momento = pickerDate.Value.Date + pickerHour.Value.TimeOfDay;
             string telref = txtTelr.Text;
             string cedula = txtCed.Text;
-            /**No sirve**/
+
             Boolean auto = checkAuto.Checked;
             string tel = txtTelCliente.Text;
             try
@@ -547,6 +561,95 @@ namespace ProyectoBases
             datos = bd.ejecutarConsultaTabla("	SELECT R.MomentoReservado, R.HoraInicioReal, R.HoraFinalizacionReal, R.TelefonoReferencia, R.CedulaEncargado, D.EsAutomatica, D.TelefonoCliente FROM DeEquipoCompleto D inner join Reservacion R on D.MomentoReservado = R.MomentoReservado ");
             dgReservN = llenarTabla(dgReservN, datos);
             dgReservN.Columns[0].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss.fff";
+        }
+
+        private void dgReservN_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                llave1 = dgReservN.SelectedRows[0].Cells[0].Value.ToString();
+            }
+            catch (Exception error)
+            {
+
+            }
+        }
+
+        private void btnERetos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime momento = Convert.ToDateTime(dgRetos.SelectedRows[0].Cells[0].Value.ToString());
+                bd.Eliminar_ReservacionNormal(momento);
+            }
+            catch (Exception error)
+            {
+
+            }
+            DataTable datos;
+            datos = bd.ejecutarConsultaTabla("SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.TelefonoReferencia, RE.CedulaEncargado, C.Nombre, C.Telefono, P.EsCreador FROM((Reto R left outer JOIN Reservacion RE ON R.MomentoReservado = RE.MomentoReservado)left outer JOIN Participa_En P ON R.MomentoReservado = P.MomentoReservado) left JOIN Cliente C ON P.TelefonoCliente = C.Telefono");
+            dgRetos = llenarTabla(dgRetos, datos);
+            dgRetos.Columns[0].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss.fff";
+        }
+
+        private void tabReto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnIRetos_Click(object sender, EventArgs e)
+        {
+
+            DateTime momento = dtpFechaRetos.Value.Date + dtpHoraReto.Value.TimeOfDay;
+            string telref = txtTelReto.Text;
+            string cedula = txtCedulaReto.Text;
+            string tel = txtTelCReto.Text;
+            try
+            {
+                bd.Insertar_Retos(momento, telref, cedula, tel);
+            }
+            catch (Exception error)
+            {
+
+            }
+
+            DataTable datos;
+            datos = bd.ejecutarConsultaTabla("SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.TelefonoReferencia, RE.CedulaEncargado, C.Nombre, C.Telefono, P.EsCreador FROM((Reto R left outer JOIN Reservacion RE ON R.MomentoReservado = RE.MomentoReservado)left outer JOIN Participa_En P ON R.MomentoReservado = P.MomentoReservado) left JOIN Cliente C ON P.TelefonoCliente = C.Telefono");
+            dgRetos = llenarTabla(dgRetos, datos);
+            dgRetos.Columns[0].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss.fff";
+        }
+
+        private void btnMRetos_Click(object sender, EventArgs e)
+        {
+            DateTime momento = dtpFechaRetos.Value.Date + dtpHoraReto.Value.TimeOfDay;
+            string telref = txtTelReto.Text;
+            string cedula = txtCedulaReto.Text;
+            string tel = txtTelCReto.Text;
+            try
+            {
+                bd.Modificar_Retos(Convert.ToDateTime(llave1),momento, telref, cedula, tel);
+            }
+            catch (Exception error)
+            {
+
+            }
+
+            DataTable datos;
+            datos = bd.ejecutarConsultaTabla("SELECT RE.MomentoReservado, RE.HoraInicioReal, RE.HoraFinalizacionReal, RE.TelefonoReferencia, RE.CedulaEncargado, C.Nombre, C.Telefono, P.EsCreador FROM((Reto R left outer JOIN Reservacion RE ON R.MomentoReservado = RE.MomentoReservado)left outer JOIN Participa_En P ON R.MomentoReservado = P.MomentoReservado) left JOIN Cliente C ON P.TelefonoCliente = C.Telefono");
+            dgRetos = llenarTabla(dgRetos, datos);
+            dgRetos.Columns[0].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss.fff";
+        }
+
+        private void dgRetos_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                llave1 = dgRetos.SelectedRows[0].Cells[0].Value.ToString();
+            }
+            catch (Exception error)
+            {
+
+            }
         }
     }
 }

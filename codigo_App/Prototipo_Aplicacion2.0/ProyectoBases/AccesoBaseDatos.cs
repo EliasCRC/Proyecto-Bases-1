@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
 using System.Configuration;
 // Namespace de acceso a base de datos
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
 
 /*Cambiar el namespace para que funcione!!*/
 namespace ProyectoBases
@@ -1050,9 +1050,47 @@ namespace ProyectoBases
             }
         }
 
-        public int Modificar_ReservacionNormal()
+        public int Modificar_ReservacionNormal(DateTime momentoV, DateTime momentoN, string telref, string cedula, Boolean auto, string tel)
         {
-            return 0;
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("modificar_DeEquipoCompleto", con))
+                {
+                    try
+                    {
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@momentoV", SqlDbType.DateTime).Value = momentoV;
+                        cmd.Parameters.Add("@momentoN", SqlDbType.DateTime).Value = momentoN;
+                        cmd.Parameters.Add("@horaInicioReal", SqlDbType.Time).Value = DBNull.Value;
+                        cmd.Parameters.Add("@horaFinalizacionReal", SqlDbType.Time).Value = DBNull.Value;
+                        cmd.Parameters.Add("@telReferencia", SqlDbType.VarChar).Value = telref;
+                        cmd.Parameters.Add("@cedulaEncargado", SqlDbType.VarChar).Value = cedula;
+                        cmd.Parameters.Add("@auto", SqlDbType.Bit).Value = auto;
+                        cmd.Parameters.Add("@tel", SqlDbType.VarChar).Value = tel;
+                        //se prepara el parámetro de retorno del procedimiento almacenado
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
 
         public int Eliminar_ReservacionNormal(DateTime momento)
@@ -1089,19 +1127,83 @@ namespace ProyectoBases
             }
         }
         /********************************************Retos*****************************************************************************************/
-        public int Insertar_Retos()
+        public int Insertar_Retos(DateTime momento, string telr, string cedula, string telC)
         {
-            return 0;
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("insertar_Reto", con))
+                {
+                    try
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@momento", SqlDbType.DateTime).Value = momento;
+                        cmd.Parameters.Add("@horaInicioReal", SqlDbType.Time).Value = DBNull.Value;
+                        cmd.Parameters.Add("@horaFinalizacionReal", SqlDbType.Time).Value = DBNull.Value;
+                        cmd.Parameters.Add("@telReferencia", SqlDbType.VarChar).Value = telr;
+                        cmd.Parameters.Add("@cedulaEncargado", SqlDbType.VarChar).Value = cedula;
+                        cmd.Parameters.Add("@telCliente", SqlDbType.VarChar).Value = telC;
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
 
-        public int Modificar_Retos()
+        public int Modificar_Retos(DateTime momentoV, DateTime momentoN, string telr, string cedula, string telC)
         {
-            return 0;
-        }
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("modificar_Reto", con))
+                {
+                    try
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@momentoV", SqlDbType.DateTime).Value = momentoV;
+                        cmd.Parameters.Add("@momentoN", SqlDbType.DateTime).Value = momentoN;
+                        cmd.Parameters.Add("@horaInicioReal", SqlDbType.Time).Value = DBNull.Value;
+                        cmd.Parameters.Add("@horaFinalizacionReal", SqlDbType.Time).Value = DBNull.Value;
+                        cmd.Parameters.Add("@telReferencia", SqlDbType.VarChar).Value = telr;
+                        cmd.Parameters.Add("@cedulaEncargado", SqlDbType.VarChar).Value = cedula;
+                        cmd.Parameters.Add("@telCliente", SqlDbType.VarChar).Value = telC;
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
 
-        public int Eliminar_Retos()
-        {
-            return 0;
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
         /*******************************************contenidos******************************************************************************************/
         public int Insertar_Contenidos(string producto, DateTime fecha, int cantidad)
