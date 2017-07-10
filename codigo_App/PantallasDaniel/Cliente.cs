@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -143,7 +143,8 @@ namespace ProyectoBases
 
         public int agregarHorarioFrec(string horario, string telefono, string cedEncargado)
         {
-            return bd.actualizarDatos("Exec agregarHorarioFrecuente " + telefono + ", null, '" + horario + "' ," + cedEncargado);
+            Console.WriteLine("Exec agregarHorarioFrec " + telefono + ", null, '" + horario + "' ," + cedEncargado);
+            return bd.actualizarDatos("Exec agregarHorarioFrec " + telefono + ", null, '" + horario + "' ," + cedEncargado);
         }
 
         public int agregarCliente(string telefono, string nombre, string apellido)
