@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -79,7 +79,7 @@ namespace ProyectoBases
 
                 }
 
-                proximo = proximo.AddHours(cbHora.SelectedIndex + 6);
+                proximo = proximo.AddHours(cbHora.SelectedIndex);
                 if (cliente.agregarHorarioFrec(proximo.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"), telCliente, encargado.getCedula()) != 0)
                 {
                     MessageBox.Show("No se logró agregar el horario", "Error");
