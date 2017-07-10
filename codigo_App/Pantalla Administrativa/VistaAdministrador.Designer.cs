@@ -120,7 +120,6 @@
             this.tabFrecuente.SelectedIndex = 0;
             this.tabFrecuente.Size = new System.Drawing.Size(642, 391);
             this.tabFrecuente.TabIndex = 11;
-            this.tabFrecuente.SelectedIndexChanged += new System.EventHandler(this.tabFrecuente_SelectedIndexChanged);
             // 
             // tabPageClientes
             // 
@@ -158,6 +157,7 @@
             this.btnMCliente.TabIndex = 3;
             this.btnMCliente.Text = "Modificar";
             this.btnMCliente.UseVisualStyleBackColor = true;
+            this.btnMCliente.Click += new System.EventHandler(this.btnMCliente_Click);
             // 
             // btnICliente
             // 
@@ -182,13 +182,11 @@
             // 
             // dataGridCliente
             // 
-            this.dataGridCliente.AllowUserToAddRows = false;
             this.dataGridCliente.AllowUserToDeleteRows = false;
             this.dataGridCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridCliente.Location = new System.Drawing.Point(6, 62);
             this.dataGridCliente.MultiSelect = false;
             this.dataGridCliente.Name = "dataGridCliente";
-            this.dataGridCliente.ReadOnly = true;
             this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridCliente.Size = new System.Drawing.Size(622, 297);
             this.dataGridCliente.TabIndex = 0;
@@ -217,6 +215,7 @@
             this.btnEFrecuente.TabIndex = 9;
             this.btnEFrecuente.Text = "Eliminar";
             this.btnEFrecuente.UseVisualStyleBackColor = true;
+            this.btnEFrecuente.Click += new System.EventHandler(this.btnEFrecuente_Click);
             // 
             // btnMFrecuente
             // 
@@ -227,6 +226,7 @@
             this.btnMFrecuente.TabIndex = 8;
             this.btnMFrecuente.Text = "Modificar";
             this.btnMFrecuente.UseVisualStyleBackColor = true;
+            this.btnMFrecuente.Click += new System.EventHandler(this.btnMFrecuente_Click);
             // 
             // btnIFrecuente
             // 
@@ -237,6 +237,7 @@
             this.btnIFrecuente.TabIndex = 7;
             this.btnIFrecuente.Text = "Insertar";
             this.btnIFrecuente.UseVisualStyleBackColor = true;
+            this.btnIFrecuente.Click += new System.EventHandler(this.btnIFrecuente_Click);
             // 
             // lblFrecuentes
             // 
@@ -250,16 +251,15 @@
             // 
             // dgFrecuente
             // 
-            this.dgFrecuente.AllowUserToAddRows = false;
             this.dgFrecuente.AllowUserToDeleteRows = false;
             this.dgFrecuente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgFrecuente.Location = new System.Drawing.Point(6, 57);
             this.dgFrecuente.MultiSelect = false;
             this.dgFrecuente.Name = "dgFrecuente";
-            this.dgFrecuente.ReadOnly = true;
             this.dgFrecuente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgFrecuente.Size = new System.Drawing.Size(622, 297);
             this.dgFrecuente.TabIndex = 5;
+            this.dgFrecuente.SelectionChanged += new System.EventHandler(this.dgFrecuente_SelectionChanged);
             // 
             // tabPageEquipoCompleto
             // 
@@ -284,6 +284,7 @@
             this.btnEReservN.TabIndex = 9;
             this.btnEReservN.Text = "Eliminar";
             this.btnEReservN.UseVisualStyleBackColor = true;
+            this.btnEReservN.Click += new System.EventHandler(this.btnEReservN_Click);
             // 
             // btnMReservN
             // 
@@ -294,6 +295,7 @@
             this.btnMReservN.TabIndex = 8;
             this.btnMReservN.Text = "Modificar";
             this.btnMReservN.UseVisualStyleBackColor = true;
+            this.btnMReservN.Click += new System.EventHandler(this.btnMReservN_Click);
             // 
             // btnIReservN
             // 
@@ -304,6 +306,7 @@
             this.btnIReservN.TabIndex = 7;
             this.btnIReservN.Text = "Insertar";
             this.btnIReservN.UseVisualStyleBackColor = true;
+            this.btnIReservN.Click += new System.EventHandler(this.btnIReservN_Click);
             // 
             // lblReservacionesNormales
             // 
@@ -317,10 +320,12 @@
             // 
             // dgReservN
             // 
+            this.dgReservN.AllowUserToDeleteRows = false;
             this.dgReservN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgReservN.Location = new System.Drawing.Point(6, 57);
             this.dgReservN.MultiSelect = false;
             this.dgReservN.Name = "dgReservN";
+            this.dgReservN.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgReservN.Size = new System.Drawing.Size(622, 297);
             this.dgReservN.TabIndex = 5;
             // 
@@ -380,10 +385,12 @@
             // 
             // dgRetos
             // 
+            this.dgRetos.AllowUserToDeleteRows = false;
             this.dgRetos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgRetos.Location = new System.Drawing.Point(6, 57);
             this.dgRetos.MultiSelect = false;
             this.dgRetos.Name = "dgRetos";
+            this.dgRetos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgRetos.Size = new System.Drawing.Size(622, 297);
             this.dgRetos.TabIndex = 5;
             // 
@@ -411,6 +418,7 @@
             this.btnECont.TabIndex = 9;
             this.btnECont.Text = "Eliminar";
             this.btnECont.UseVisualStyleBackColor = true;
+            this.btnECont.Click += new System.EventHandler(this.btnECont_Click);
             // 
             // btnMCont
             // 
@@ -421,6 +429,7 @@
             this.btnMCont.TabIndex = 8;
             this.btnMCont.Text = "Modificar";
             this.btnMCont.UseVisualStyleBackColor = true;
+            this.btnMCont.Click += new System.EventHandler(this.btnMCont_Click);
             // 
             // btnICont
             // 
@@ -431,6 +440,7 @@
             this.btnICont.TabIndex = 7;
             this.btnICont.Text = "Insertar";
             this.btnICont.UseVisualStyleBackColor = true;
+            this.btnICont.Click += new System.EventHandler(this.btnICont_Click);
             // 
             // lblContenido
             // 
@@ -445,10 +455,12 @@
             // 
             // dgCont
             // 
+            this.dgCont.AllowUserToDeleteRows = false;
             this.dgCont.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgCont.Location = new System.Drawing.Point(6, 57);
             this.dgCont.MultiSelect = false;
             this.dgCont.Name = "dgCont";
+            this.dgCont.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgCont.Size = new System.Drawing.Size(622, 297);
             this.dgCont.TabIndex = 5;
             // 
@@ -508,10 +520,12 @@
             // 
             // dgPartR
             // 
+            this.dgPartR.AllowUserToDeleteRows = false;
             this.dgPartR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgPartR.Location = new System.Drawing.Point(6, 57);
             this.dgPartR.MultiSelect = false;
             this.dgPartR.Name = "dgPartR";
+            this.dgPartR.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgPartR.Size = new System.Drawing.Size(622, 297);
             this.dgPartR.TabIndex = 5;
             // 
@@ -538,6 +552,7 @@
             this.btnEEncargados.TabIndex = 9;
             this.btnEEncargados.Text = "Eliminar";
             this.btnEEncargados.UseVisualStyleBackColor = true;
+            this.btnEEncargados.Click += new System.EventHandler(this.btnEEncargados_Click);
             // 
             // btnMEncargados
             // 
@@ -548,6 +563,7 @@
             this.btnMEncargados.TabIndex = 8;
             this.btnMEncargados.Text = "Modificar";
             this.btnMEncargados.UseVisualStyleBackColor = true;
+            this.btnMEncargados.Click += new System.EventHandler(this.btnMEncargados_Click);
             // 
             // btnIEncargados
             // 
@@ -558,6 +574,7 @@
             this.btnIEncargados.TabIndex = 7;
             this.btnIEncargados.Text = "Insertar";
             this.btnIEncargados.UseVisualStyleBackColor = true;
+            this.btnIEncargados.Click += new System.EventHandler(this.btnIEncargados_Click);
             // 
             // lblEncargados
             // 
@@ -571,12 +588,15 @@
             // 
             // dgEncargados
             // 
+            this.dgEncargados.AllowUserToDeleteRows = false;
             this.dgEncargados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEncargados.Location = new System.Drawing.Point(6, 57);
             this.dgEncargados.MultiSelect = false;
             this.dgEncargados.Name = "dgEncargados";
+            this.dgEncargados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgEncargados.Size = new System.Drawing.Size(622, 297);
             this.dgEncargados.TabIndex = 5;
+            this.dgEncargados.SelectionChanged += new System.EventHandler(this.dgEncargados_SelectionChanged);
             // 
             // tabPageProducto
             // 
@@ -601,6 +621,7 @@
             this.btnEProductos.TabIndex = 9;
             this.btnEProductos.Text = "Eliminar";
             this.btnEProductos.UseVisualStyleBackColor = true;
+            this.btnEProductos.Click += new System.EventHandler(this.btnEProductos_Click);
             // 
             // btnMProductos
             // 
@@ -611,6 +632,7 @@
             this.btnMProductos.TabIndex = 8;
             this.btnMProductos.Text = "Modificar";
             this.btnMProductos.UseVisualStyleBackColor = true;
+            this.btnMProductos.Click += new System.EventHandler(this.btnMProductos_Click);
             // 
             // btnIProductos
             // 
@@ -621,6 +643,7 @@
             this.btnIProductos.TabIndex = 7;
             this.btnIProductos.Text = "Insertar";
             this.btnIProductos.UseVisualStyleBackColor = true;
+            this.btnIProductos.Click += new System.EventHandler(this.btnIProductos_Click);
             // 
             // lblProducto
             // 
@@ -634,12 +657,15 @@
             // 
             // dgProductos
             // 
+            this.dgProductos.AllowUserToDeleteRows = false;
             this.dgProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgProductos.Location = new System.Drawing.Point(6, 57);
             this.dgProductos.MultiSelect = false;
             this.dgProductos.Name = "dgProductos";
+            this.dgProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgProductos.Size = new System.Drawing.Size(622, 297);
             this.dgProductos.TabIndex = 5;
+            this.dgProductos.SelectionChanged += new System.EventHandler(this.dgProductos_SelectionChanged);
             // 
             // tabPageVenta
             // 
@@ -664,6 +690,7 @@
             this.btnEVentas.TabIndex = 9;
             this.btnEVentas.Text = "Eliminar";
             this.btnEVentas.UseVisualStyleBackColor = true;
+            this.btnEVentas.Click += new System.EventHandler(this.btnEVentas_Click);
             // 
             // btnMVentas
             // 
@@ -674,6 +701,7 @@
             this.btnMVentas.TabIndex = 8;
             this.btnMVentas.Text = "Modificar";
             this.btnMVentas.UseVisualStyleBackColor = true;
+            this.btnMVentas.Click += new System.EventHandler(this.btnMVentas_Click);
             // 
             // btnIVentas
             // 
@@ -684,6 +712,7 @@
             this.btnIVentas.TabIndex = 7;
             this.btnIVentas.Text = "Insertar";
             this.btnIVentas.UseVisualStyleBackColor = true;
+            this.btnIVentas.Click += new System.EventHandler(this.btnIVentas_Click);
             // 
             // lblVentas
             // 
@@ -697,12 +726,15 @@
             // 
             // dgVentas
             // 
+            this.dgVentas.AllowUserToDeleteRows = false;
             this.dgVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgVentas.Location = new System.Drawing.Point(6, 57);
             this.dgVentas.MultiSelect = false;
             this.dgVentas.Name = "dgVentas";
+            this.dgVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgVentas.Size = new System.Drawing.Size(622, 297);
             this.dgVentas.TabIndex = 5;
+            this.dgVentas.SelectionChanged += new System.EventHandler(this.dgVentas_SelectionChanged);
             // 
             // VistaAdministrador
             // 
@@ -710,6 +742,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(645, 389);
             this.Controls.Add(this.tabFrecuente);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "VistaAdministrador";
             this.Text = "Administracion";
             this.Load += new System.EventHandler(this.VistaAdministrador_Load);
