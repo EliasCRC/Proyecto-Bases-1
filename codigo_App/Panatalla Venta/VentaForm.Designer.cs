@@ -61,7 +61,6 @@
             // 
             this.dataGVentas.AllowUserToAddRows = false;
             this.dataGVentas.AllowUserToDeleteRows = false;
-            this.dataGVentas.AllowUserToResizeColumns = false;
             this.dataGVentas.AllowUserToResizeRows = false;
             this.dataGVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGVentas.Location = new System.Drawing.Point(16, 59);
@@ -211,6 +210,7 @@
             this.ClientSize = new System.Drawing.Size(629, 373);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.gbVenta);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "VentaForm";
             this.Text = "Venta";
             this.Load += new System.EventHandler(this.FVenta_Load);

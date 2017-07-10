@@ -392,7 +392,7 @@ namespace ProyectoBases
             }
         }
         /******************************************Cliente***********************************************************************************************/
-        public int Insertar_Cliente(string tel, string nombre, string apellido, int deuda, int numReser)
+        public int Insertar_Cliente(String tel, String nombre, String apellido, int deuda, int numReser)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -431,7 +431,7 @@ namespace ProyectoBases
             }
         }
 
-        public int Modificar_Cliente(string tel1,string tel2, string nombre, string apellido, int deuda, int numReser)
+        public int Modificar_Cliente(String tel1,String tel2, String nombre, String apellido, int deuda, int numReser)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -447,7 +447,7 @@ namespace ProyectoBases
                         //Se preparan los parámetros que recibe el procedimiento almacenado
                         cmd.Parameters.Add("@telviejo", SqlDbType.VarChar).Value = tel1;
                         cmd.Parameters.Add("@telnuevo", SqlDbType.VarChar).Value = tel2;
-                        cmd.Parameters.Add("@nomb", SqlDbType.VarChar).Value = nombre;
+                        cmd.Parameters.Add("@nom", SqlDbType.VarChar).Value = nombre;
                         cmd.Parameters.Add("@ape", SqlDbType.VarChar).Value = apellido;
                         cmd.Parameters.Add("@deuda", SqlDbType.Int).Value = deuda;
                         cmd.Parameters.Add("@numReserv", SqlDbType.Int).Value = numReser;
@@ -459,6 +459,7 @@ namespace ProyectoBases
                         cmd.ExecuteNonQuery();
                         /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
                         return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+                        
 
                     }
                     catch (SqlException ex)
@@ -506,7 +507,7 @@ namespace ProyectoBases
             }
         }
         /*****************************************Frecuentes********************************************************************************************/
-        public int Insertar_Frecuente(string tel, string num)
+        public int Insertar_Frecuente(string tel, int num)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -542,7 +543,7 @@ namespace ProyectoBases
             }
         }
 
-        public int Modificar_Frecuente(string tel1, string tel2, string num)
+        public int Modificar_Frecuente(string tel1, string tel2, int num)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -614,7 +615,7 @@ namespace ProyectoBases
             }
         }
         /*******************************************Reservacion Normal******************************************************************************************/
-        public int Insertar_ReservacionNormal(string tel1, string tel2, string num)
+        public int Insertar_ReservacionNormal(DateTime momento, string telref, string cedula, Boolean auto, string tel)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -622,15 +623,20 @@ namespace ProyectoBases
                 /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
                  * de segundo parámetro recibe el sqlConnection
                 */
-                using (SqlCommand cmd = new SqlCommand("modificar_Frecuente", con))
+                using (SqlCommand cmd = new SqlCommand("insertar_DeEquipoCompleto", con))
                 {
                     try
                     {
+
                         cmd.CommandType = CommandType.StoredProcedure;
                         //Se preparan los parámetros que recibe el procedimiento almacenado
-                        cmd.Parameters.Add("@telViejo", SqlDbType.VarChar).Value = tel1;
-                        cmd.Parameters.Add("@telNuevo", SqlDbType.VarChar).Value = tel2;
-                        cmd.Parameters.Add("@numR", SqlDbType.TinyInt).Value = num;
+                        cmd.Parameters.Add("@telViejo", SqlDbType.DateTime).Value = momento;
+                        cmd.Parameters.Add("@telNuevo", SqlDbType.Time).Value = null;
+                        cmd.Parameters.Add("@numR", SqlDbType.Time).Value = null ;
+                        cmd.Parameters.Add("@numR", SqlDbType.VarChar).Value = telref;
+                        cmd.Parameters.Add("@numR", SqlDbType.VarChar).Value = cedula;
+                        cmd.Parameters.Add("@numR", SqlDbType.Bit).Value = auto;
+                        cmd.Parameters.Add("@numR", SqlDbType.VarChar).Value = tel;
                         //se prepara el parámetro de retorno del procedimiento almacenado
                         cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         /*Se abre la conexión*/
@@ -656,9 +662,38 @@ namespace ProyectoBases
             return 0;
         }
 
-        public int Eliminar_ReservacionNormal()
+        public int Eliminar_ReservacionNormal(DateTime momento)
         {
-            return 0;
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("eliminar_Reservacion", con))
+                {
+                    try
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@momento", SqlDbType.DateTime).Value = momento;
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
         /********************************************Retos*****************************************************************************************/
         public int Insertar_Retos()
@@ -676,7 +711,7 @@ namespace ProyectoBases
             return 0;
         }
         /*******************************************contenidos******************************************************************************************/
-        public int Insertar_Contenidos(string producto, string fecha, string cantidad)
+        public int Insertar_Contenidos(string producto, DateTime fecha, int cantidad)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -752,7 +787,7 @@ namespace ProyectoBases
             }
         }
 
-        public int Eliminar_Contenidos(string producto, string fecha)
+        public int Eliminar_Contenidos(string producto, DateTime fecha)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -767,7 +802,7 @@ namespace ProyectoBases
                         cmd.CommandType = CommandType.StoredProcedure;
                         //Se preparan los parámetros que recibe el procedimiento almacenado
                         cmd.Parameters.Add("@nombreP", SqlDbType.VarChar).Value = producto;
-                        cmd.Parameters.Add("@momentoV", SqlDbType.DateTime).Value = fecha;
+                        cmd.Parameters.Add("@momento", SqlDbType.DateTime).Value = fecha;
                         //se prepara el parámetro de retorno del procedimiento almacenado
                         cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         /*Se abre la conexión*/
@@ -803,22 +838,112 @@ namespace ProyectoBases
             return 0;
         }
         /*******************************************Encargados******************************************************************************************/
-        public int Insertar_Encargados()
+        public int Insertar_Encargados(string cedula, string nombre)
         {
-            return 0;
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("insertar_Encargado", con))
+                {
+                    try
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@cedula", SqlDbType.VarChar).Value = cedula;
+                        cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
 
-        public int Modificar_Encargados()
+        public int Modificar_Encargados(string cedula1, string cedula2, string nombre)
         {
-            return 0;
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("modificar_Encargado", con))
+                {
+                    try
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@cedulaVieja", SqlDbType.VarChar).Value = cedula1;
+                        cmd.Parameters.Add("@cedulaNueva", SqlDbType.VarChar).Value = cedula2;
+                        cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
 
-        public int Eliminar_Encargados()
+        public int Eliminar_Encargados(string cedula)
         {
-            return 0;
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("eliminar_Encargado", con))
+                {
+                    try
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@cedula", SqlDbType.VarChar).Value = cedula;
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
         /****************************************Productos*********************************************************************************************/
-        public int Insertar_Producto(string nombre, string precio)
+        public int Insertar_Producto(string nombre, int precio)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -853,9 +978,40 @@ namespace ProyectoBases
             }
         }
 
-        public int Modificar_Producto()
+        public int Modificar_Producto(string nombreV, string nombre, int precio)
         {
-            return 0;
+            int error = 0;
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                /*El sqlCommand recibe como primer parámetro el nombre del procedimiento almacenado, 
+                 * de segundo parámetro recibe el sqlConnection
+                */
+                using (SqlCommand cmd = new SqlCommand("eliminar_Producto", con))
+                {
+                    try
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //Se preparan los parámetros que recibe el procedimiento almacenado
+                        cmd.Parameters.Add("@nombreViejo", SqlDbType.VarChar).Value = nombreV;
+                        cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                        cmd.Parameters.Add("@precio", SqlDbType.Int).Value = precio;
+                        cmd.Parameters.Add("@estado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        /*Se abre la conexión*/
+                        con.Open();
+                        //Se ejecuta el procedimiento almacenado
+                        cmd.ExecuteNonQuery();
+                        /*Se convierte en un valor entero lo que se devuelve el procedimiento*/
+                        return Convert.ToInt32(cmd.Parameters["@estado"].Value);
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        /*Se capta el número de error si no se pudo insertar*/
+                        error = ex.Number;
+                        return error;
+                    }
+                }
+            }
         }
 
         public int Eliminar_Producto(string nombre)
@@ -892,7 +1048,7 @@ namespace ProyectoBases
             }
         }
         /****************************************Venta*********************************************************************************************/
-        public int Insertar_Venta(string fecha, string cedula)
+        public int Insertar_Venta(DateTime fecha, string cedula)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -929,7 +1085,7 @@ namespace ProyectoBases
             }
         }
 
-        public int Modificar_Venta(string fecha1, string fecha2, string cedula, string monto)
+        public int Modificar_Venta(DateTime fecha1, DateTime fecha2, string cedula, int monto)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
@@ -967,7 +1123,7 @@ namespace ProyectoBases
             }
         }
 
-        public int Eliminar_Venta(string fecha)
+        public int Eliminar_Venta(DateTime fecha)
         {
             int error = 0;
             using (SqlConnection con = new SqlConnection(conexion))
