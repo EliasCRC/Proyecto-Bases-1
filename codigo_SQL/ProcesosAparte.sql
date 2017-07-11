@@ -76,7 +76,7 @@ CREATE PROCEDURE crear_Cliente
 	@ape varchar(20)
 AS
 	INSERT INTO Cliente
-	VALUES(@tel, @nomb, @ape, 0, 0);
+	VALUES(@tel, @nomb, @ape, DEFAULT, DEFAULT);
 
 Go
 CREATE PROCEDURE borrar_Cliente
