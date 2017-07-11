@@ -17,7 +17,7 @@ CONSTRAINT PKCliente PRIMARY KEY (Telefono)
 CREATE TABLE Frecuente 
 ( 
 Telefono					VARCHAR(10),
-NumReservAutomaticasCanceladas	TINYINT		DEFAULT 0
+NumReservAutomaticasCanceladas	TINYINT		DEFAULT 0	NOT NULL
  
 CONSTRAINT PKFrecuente PRIMARY KEY (Telefono),
 CONSTRAINT FKClienteFrecuente FOREIGN KEY(Telefono) REFERENCES Cliente(Telefono)
