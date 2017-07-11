@@ -1,0 +1,30 @@
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\bin\Debug\ProyectoBases.exe.config
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.csprojResolveAssemblyReference.cache
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.Properties.Resources.resources
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.csproj.GenerateResource.Cache
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\bin\Debug\ProyectoBases.exe
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\bin\Debug\ProyectoBases.pdb
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.exe
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.pdb
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.VistaResumenReservaciones.resources
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.VistaSelecMesResumenVentas.resources
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.VistaResumenVentas.resources
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.VistaSelecMesResumenReserv.resources
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.VistaAdministrador.resources
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.VistaMenuPrincipal.resources
+E:\BD Proyecto\Visual Studio\ProyectoBases\ProyectoBases\obj\Debug\ProyectoBases.VistaLogin.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\bin\Debug\ProyectoBases.exe.config
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.exe
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.pdb
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\bin\Debug\ProyectoBases.exe
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\bin\Debug\ProyectoBases.pdb
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.csprojResolveAssemblyReference.cache
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.Properties.Resources.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.VistaAdministrador.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.VistaLogin.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.VistaMenuPrincipal.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.VistaResumenReservaciones.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.VistaResumenVentas.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.VistaSelecMesResumenReserv.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.VistaSelecMesResumenVentas.resources
+C:\Users\b51322\Desktop\Prototipo_Aplicacion\ProyectoBases\obj\Debug\ProyectoBases.csproj.GenerateResource.Cache
