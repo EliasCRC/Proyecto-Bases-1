@@ -6,8 +6,8 @@ CREATE TABLE Cliente
 Telefono			VARCHAR(10),
 Nombre				VARCHAR(20)	NOT NULL,
 Apellido			VARCHAR(20),
-Deuda				INT		DEFAULT 0,
-NumReservCanceladas		INT		DEFAULT 0
+Deuda				INT		DEFAULT 0	NOT NULL,
+NumReservCanceladas		INT		DEFAULT 0	NOT NULL
  
 CONSTRAINT PKCliente PRIMARY KEY (Telefono)
 );
